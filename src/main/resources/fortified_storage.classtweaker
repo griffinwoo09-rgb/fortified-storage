@@ -1,0 +1,9 @@
+classTweaker	v1	official
+# Lets the client screen lay out and scroll large grids.
+mutable	field	net/minecraft/world/inventory/Slot	x	I
+mutable	field	net/minecraft/world/inventory/Slot	y	I
+# Lets the screen re-fit itself when the window or GUI scale changes while it is open.
+mutable	field	net/minecraft/client/gui/screens/inventory/AbstractContainerScreen	imageWidth	I
+mutable	field	net/minecraft/client/gui/screens/inventory/AbstractContainerScreen	imageHeight	I
+# Vanilla has no public way to add cauldron washing for new shulker boxes.
+accessible	method	net/minecraft/core/cauldron/CauldronInteraction$Dispatcher	put	(Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V

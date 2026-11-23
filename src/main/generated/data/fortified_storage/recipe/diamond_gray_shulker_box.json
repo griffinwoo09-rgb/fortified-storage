@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "diamond_shulker_box_dye",
+  "input": "#fortified_storage:shulker_boxes/diamond",
+  "material": "minecraft:gray_dye",
+  "result": {
+    "id": "fortified_storage:diamond_gray_shulker_box"
+  }
+}

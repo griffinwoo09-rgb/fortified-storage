@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "fortified_storage:diamond_chest",
+    "minecraft:tripwire_hook"
+  ],
+  "result": {
+    "id": "fortified_storage:diamond_trapped_chest"
+  }
+}

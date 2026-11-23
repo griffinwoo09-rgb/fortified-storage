@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "fortified_storage:tiered",
+      "set": "items"
+    }
+  ]
+}

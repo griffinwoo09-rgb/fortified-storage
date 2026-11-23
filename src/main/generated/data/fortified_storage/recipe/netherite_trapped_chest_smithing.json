@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#c:ingots/netherite",
+  "base": "fortified_storage:diamond_trapped_chest",
+  "result": {
+    "id": "fortified_storage:netherite_trapped_chest"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

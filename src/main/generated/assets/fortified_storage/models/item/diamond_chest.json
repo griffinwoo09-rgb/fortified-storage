@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/template_chest",
+  "textures": {
+    "particle": "fortified_storage:block/diamond_chest"
+  }
+}

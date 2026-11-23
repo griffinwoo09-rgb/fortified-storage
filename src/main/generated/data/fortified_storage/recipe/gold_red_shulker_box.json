@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "gold_shulker_box_dye",
+  "input": "#fortified_storage:shulker_boxes/gold",
+  "material": "minecraft:red_dye",
+  "result": {
+    "id": "fortified_storage:gold_red_shulker_box"
+  }
+}

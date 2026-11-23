@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#c:ingots/netherite",
+  "base": "fortified_storage:diamond_upgrade_kit",
+  "result": {
+    "id": "fortified_storage:netherite_upgrade_kit"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

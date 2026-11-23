@@ -1,0 +1,12 @@
+{
+  "values": [
+    "fortified_storage:iron_chest",
+    "fortified_storage:gold_chest",
+    "fortified_storage:diamond_chest",
+    "fortified_storage:netherite_chest",
+    "fortified_storage:iron_trapped_chest",
+    "fortified_storage:gold_trapped_chest",
+    "fortified_storage:diamond_trapped_chest",
+    "fortified_storage:netherite_trapped_chest"
+  ]
+}

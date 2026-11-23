@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "fortified_storage",
+  "version": "${version}",
+  "name": "Fortified Storage",
+  "description": "Iron, gold, diamond and netherite chests, barrels and shulker boxes whose textures follow your resource pack.",
+  "authors": ["griffin"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.griffin.fortifiedstorage.FortifiedStorage"],
+    "client": ["com.griffin.fortifiedstorage.client.FortifiedStorageClient"],
+    "fabric-datagen": ["com.griffin.fortifiedstorage.client.datagen.FortifiedDataGen"]
+  },
+  "accessWidener": "fortified_storage.classtweaker",
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

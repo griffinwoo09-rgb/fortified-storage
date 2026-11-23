@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/template_shulker_box",
+  "textures": {
+    "particle": "fortified_storage:block/gold_purple_shulker_box"
+  }
+}

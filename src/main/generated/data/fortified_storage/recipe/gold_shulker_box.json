@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": "fortified_storage:iron_shulker_box",
+    "M": "#c:ingots/gold"
+  },
+  "pattern": [
+    "MMM",
+    "MBM",
+    "MMM"
+  ],
+  "result": {
+    "id": "fortified_storage:gold_shulker_box"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fortified_storage:item/netherite_upgrade_kit"
+  }
+}

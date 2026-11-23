@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "iron_shulker_box_dye",
+  "input": "#fortified_storage:shulker_boxes/iron",
+  "material": "minecraft:gray_dye",
+  "result": {
+    "id": "fortified_storage:iron_gray_shulker_box"
+  }
+}

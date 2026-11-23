@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "netherite_shulker_box_dye",
+  "input": "#fortified_storage:shulker_boxes/netherite",
+  "material": "minecraft:light_blue_dye",
+  "result": {
+    "id": "fortified_storage:netherite_light_blue_shulker_box"
+  }
+}
