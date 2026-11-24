@@ -15,14 +15,13 @@ import net.minecraft.world.inventory.Slot;
 
 /**
  * Draws the background from vanilla pieces (the generic container panel's border, nine-sliced,
- * plus the {@code container/slot} sprite per slot), so a resource pack's GUI style carries over.
+ * plus each slot copied from that same image), so it looks like a vanilla chest in any resource pack.
  * The grid always has the container's own shape. If that doesn't fit at the player's GUI scale,
  * the GUI scale is lowered while this screen is open and restored when it closes; it only scrolls
  * when even GUI scale 1 is too small.
  */
 public class FortifiedContainerScreen extends AbstractContainerScreen<FortifiedContainerMenu> {
 	private static final Identifier PANEL = Identifier.withDefaultNamespace("textures/gui/container/generic_54.png");
-	private static final Identifier SLOT = Identifier.withDefaultNamespace("container/slot");
 	private static final Identifier SCROLLER = Identifier.withDefaultNamespace("container/creative_inventory/scroller");
 	private static final int S = FortifiedContainerMenu.SLOT;
 	private static final int THUMB_HEIGHT = 15;
@@ -108,14 +107,16 @@ public class FortifiedContainerScreen extends AbstractContainerScreen<FortifiedC
 		drawPanel(graphics, leftPos, topPos, imageWidth, imageHeight);
 		for (Slot slot : menu.slots) {
 			if (!(slot instanceof GridSlot grid) || grid.visible) {
-				graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT, leftPos + slot.x - 1, topPos + slot.y - 1, S, S);
+				// The chest background's own first slot cell, so slots look exactly like a vanilla chest in any pack
+				// (dark GUI packs often leave the separate container/slot sprite as a borderless square).
+				blit(graphics, leftPos + slot.x - 1, topPos + slot.y - 1, 7, 17, S, S, S, S);
 			}
 		}
 		if (layout.scrolls()) {
 			int x = barX();
 			int y = topPos + FortifiedContainerMenu.GRID_TOP - 1;
 			int height = layout.visibleRows() * S;
-			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT, x, y, 14, height); // sunken track
+			blit(graphics, x, y, 7, 17, 14, height, S, S); // sunken track, stretched from the same slot cell
 			int thumbY = y + 1 + (int) ((height - THUMB_HEIGHT - 2) * (scroll / (float) (layout.rows() - layout.visibleRows())));
 			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SCROLLER, x + 1, thumbY, 12, THUMB_HEIGHT);
 		}

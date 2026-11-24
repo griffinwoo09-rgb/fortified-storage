@@ -82,7 +82,7 @@ The mod registers an atlas sprite source type, `fortified_storage:tiered`, and a
 
 ## GUI
 
-The container screen is drawn from vanilla pieces: the generic container panel (nine-sliced) and the `container/slot` sprite, so a pack's GUI style carries over.
+The container screen is drawn from the vanilla chest background (`generic_54.png`): its border is nine-sliced and every slot is copied from its own slot cell. So it looks like a vanilla chest in any GUI pack, dark ones included.
 
 The grid always has the container's real shape, in full rows: each tier is wider and taller than the last, from 9 × 6 for iron to 15 × 11 for netherite, and a double chest shows its two halves side by side (30 × 11 for netherite). A barrel or shulker box has exactly the same size and shape as the single chest of its tier. If the screen doesn't fit at your GUI scale, it lowers the GUI scale just enough while it is open and puts it back when you close it. For example, a double netherite chest at GUI scale 4 on a 1080p screen opens at scale 3. It only scrolls if it can't fit even at GUI scale 1. All vanilla slot behaviour still works: shift-click, double-click to collect, number keys, and the creative destroy slot.
 
