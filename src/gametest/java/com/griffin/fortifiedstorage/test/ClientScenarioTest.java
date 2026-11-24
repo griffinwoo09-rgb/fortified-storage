@@ -60,6 +60,7 @@ public class ClientScenarioTest implements FabricClientGameTest {
 			}
 			context.waitTicks(5);
 			context.takeScreenshot("1_scene_default");
+			checkCreativeMenu(context, world.getServer());
 			world.getServer().runCommand("tp @a 0.5 -57.3 0.3 0 40"); // close-up of the barrel and shulker rows
 			context.waitTicks(10);
 			world.getConnection().waitForChunksRender();
@@ -375,6 +376,61 @@ public class ClientScenarioTest implements FabricClientGameTest {
 			if (scale != c.expectedScale() || layout.scrolls() || layout.columns() != c.columns() || layout.rows() != c.rows()) {
 				throw new AssertionError("layout for " + c + ": scale " + scale + ", " + layout);
 			}
+		}
+	}
+
+	/** The creative inventory lists every Fortified Storage item, in its own tab (and the vanilla tabs, see ModContent). */
+	private static void checkCreativeMenu(ClientGameTestContext context, TestServerContext server) {
+		server.runCommand("gamemode creative @a");
+		context.waitTicks(5);
+		context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen(
+			Minecraft.getInstance().player, Minecraft.getInstance().player.connection.enabledFeatures(), false));
+		context.waitTicks(5);
+		context.computeOnClient(mc -> { // Functional Blocks tab, where the containers now also appear
+			try {
+				var select = net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.class
+					.getDeclaredMethod("selectTab", net.minecraft.world.item.CreativeModeTab.class);
+				select.setAccessible(true);
+				select.invoke(mc.gui.screen(), BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS));
+				return null;
+			} catch (ReflectiveOperationException e) {
+				throw new AssertionError(e);
+			}
+		});
+		context.waitTicks(5);
+		context.takeScreenshot("1e_creative_functional_blocks");
+		int listed = context.computeOnClient(mc -> {
+			var screen = (net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen) mc.gui.screen();
+			var tab = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(com.griffin.fortifiedstorage.FortifiedStorage.id("main"));
+			for (int page = 0; page < screen.getPageCount(); page++) {
+				if (screen.getTabsOnPage(page).contains(tab)) {
+					screen.switchToPage(page);
+				}
+			}
+			try {
+				var select = net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen.class
+					.getDeclaredMethod("selectTab", net.minecraft.world.item.CreativeModeTab.class);
+				select.setAccessible(true);
+				select.invoke(screen, tab);
+			} catch (ReflectiveOperationException e) {
+				throw new AssertionError(e);
+			}
+			return tab.getDisplayItems().size();
+		});
+		context.waitTicks(5);
+		context.takeScreenshot("1f_creative_fortified_tab");
+		context.setScreen(() -> null);
+		server.runCommand("gamemode survival @a");
+		if (listed != ModContent.ALL_ITEMS.size()) {
+			throw new AssertionError("Fortified Storage tab lists " + listed + " items, expected " + ModContent.ALL_ITEMS.size());
+		}
+		// Also on the first page, where players look first.
+		boolean inFunctional = context.computeOnClient(mc -> BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(net.minecraft.world.item.CreativeModeTabs.FUNCTIONAL_BLOCKS)
+			.getDisplayItems().stream().anyMatch(stack -> stack.is(ModContent.block(StorageKind.CHEST, StorageTier.NETHERITE, null).asItem())));
+		boolean kitInTools = context.computeOnClient(mc -> BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)
+			.getDisplayItems().stream().anyMatch(stack -> stack.is(ModContent.UPGRADE_KITS.get(StorageTier.IRON))));
+		if (!inFunctional || !kitInTools) {
+			throw new AssertionError("fortified items missing from vanilla tabs: functional blocks " + inFunctional + ", tools " + kitInTools);
 		}
 	}
 

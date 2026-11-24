@@ -34,6 +34,10 @@ There is no copper tier: vanilla already has a copper chest.
 
 All recipes use common (`c:`) tags and appear in the recipe book.
 
+## Creative menu
+
+Everything is in the **Fortified Storage** tab. Mod tabs are on the second page of creative tabs, reached with the arrows at the top right. The chests, trapped chests, barrels and undyed shulker boxes are also in **Functional Blocks** right after the vanilla barrel, and the upgrade kits are in **Tools & Utilities**. Search finds everything.
+
 ## Upgrade kits
 
 Sneak and right-click (use) a container with a kit to convert it in place. The **iron kit** converts vanilla chests, trapped chests, barrels and shulker boxes (the block tag `fortified_storage:upgradeable/vanilla`; the copper chest is deliberately left out). Each later kit converts the tier before it: iron to gold, gold to diamond, diamond to netherite.

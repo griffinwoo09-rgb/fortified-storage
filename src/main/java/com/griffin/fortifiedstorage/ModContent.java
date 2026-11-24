@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.menu.v1.ExtendedMenuType;
 import net.minecraft.core.Registry;
@@ -31,6 +32,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -114,6 +117,14 @@ public final class ModContent {
 
 	/** Forces the static registration above to run during mod init. */
 	static void init() {
+		// Mod tabs sit on a second page of creative tabs that's easy to miss, so also list the items where
+		// players look first: containers next to the vanilla barrel, kits in Tools & Utilities. Dyed shulker
+		// boxes stay in our own tab (and search) so they don't flood the vanilla tab.
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(output -> output.insertAfter(Items.BARREL,
+			ALL_ITEMS.stream().filter(item -> !(item instanceof UpgradeKitItem)
+				&& !(Block.byItem(item) instanceof ShulkerBoxBlock box && box.getColor() != null)).map(ItemStack::new).toList()));
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(output ->
+			UPGRADE_KITS.values().forEach(output::accept));
 		for (Block[] colors : SHULKERS.values()) {
 			for (Block box : colors) {
 				DispenserBlock.registerBehavior(box, new ShulkerBoxDispenseBehavior());
